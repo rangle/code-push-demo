@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.muted {
+  color: #ccc;
+}
+
 #tri0,
 #tri1,
 #tri2,

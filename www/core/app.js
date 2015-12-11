@@ -3,7 +3,6 @@
  */
 angular.module('codePushDemo', [
   'ionic',
-  'code.push',
   'component.main'
 ])
 .run(function($ionicPlatform) {

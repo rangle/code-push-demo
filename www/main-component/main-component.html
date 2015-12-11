@@ -1,35 +1,74 @@
-<ng-include src="'main-component/loader.html'"
-  ng-if="main.downloadProgress">
-</ng-include>
-
-<div class="list">
+<div class="list" ng-if="main.codePush.syncStatus !== 'Downloading package'">
   <div class="item item-divider">
     Local Package Info
   </div>
-  <a class="item item-icon-left" href="#">
-    <i class="icon ion-document-text"></i>
-    <b>{{ main.localPackage.appVersion }}</b>
-    <span class="item-note">version</span>
-  </a>
   <a class="item" href="#">
-    <b>{{ main.localPackage.label }}</b>
+    <b>{{ main.codePush.localPackage.label }}</b>
     <span class="item-note">label</span>
   </a>
   <a class="item" href="#">
-    <b>{{ main.localPackage.description }}</b>
+    <b>{{ main.codePush.localPackage.description || 'N/A' }}</b>
     <span class="item-note">description</span>
+  </a>
+  <a class="item" href="#">
+    <b>{{ main.codePush.localPackage.appVersion }}</b>
+    <span class="item-note">minimum version</span>
   </a>
 </div>
 
-<div class="card assertive">
+<p ng-if="main.codePush.syncStatus !== 'Downloading package'"
+  class="padding-horizontal">
+  <button class="button button-block button-positive"
+    ng-click="main.checkForUpdate()">
+    Check for Update
+  </button>
+  <button class="button button-block button-balanced icon ion-android-sync"
+    ng-click="main.sync()"
+    ng-disabled="!main.codePush.remotePackage">
+    Sync
+  </button>
+</p>
+
+<ng-include src="'main-component/loader.html'"
+  ng-if="main.codePush.syncStatus === 'Downloading package'">
+</ng-include>
+
+<div ng-if="main.codePush.syncStatus" class="card">
+  <div class="item item-divider">
+    Sync Status
+  </div>
+  <div class="item item-text-wrap text-center">
+    {{ main.codePush.syncStatus }}
+  </div>
+</div>
+
+<div ng-if="main.codePush.didCheck && main.codePush.syncStatus !== 'Downloading package'" class="card">
   <div class="item item-text-wrap">
-    <div>The application is up to date.</div>
-    <div>A CodePush update is available:<br><br>
+    <div ng-if="!main.codePush.remotePackage">
+      The application is up to date.
+    </div>
+    <div ng-if="main.codePush.remotePackage">
+      A CodePush update is available:<br><br>
       <ul>
-        <li><b>label:</b> Package label<br></li>
-        <li><b>description:</b> remotePackage<br></li>
-        <li><b>version:</b> appVersion</li>
+        <li>
+          <b>label:</b> {{ main.codePush.remotePackage.label }}
+        </li>
+        <li>
+          <b>description:</b> {{ main.codePush.remotePackage.description || 'N/A' }}
+        </li>
+        <li>
+          <b>minimum version:</b> {{ main.codePush.remotePackage.appVersion }}
+        </li>
       </ul>
     </div>
+  </div>
+</div>
+
+<div ng-if="main.error" class="card">
+  <div class="item item-text-wrap">
+    <div class="text-center padding" style="font-size: 150%">
+      <i class="icon ion-alert-circled"></i>
+    </div>
+    {{ main.error }}
   </div>
 </div>

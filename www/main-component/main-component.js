@@ -1,26 +1,36 @@
 /**
  * Main App Component
  */
-angular.module('component.main', [])
-.directive('main', function(codePush) {
+angular.module('component.main', [
+  'code.push'
+])
+.directive('main', function() {
   return {
     scope: {},
     restrict: 'E',
     templateUrl: 'main-component/main-component.html',
     controllerAs: 'main',
-    controller: function() {
+    bindToController: true,
+    controller: function(codePush) {
       var vm = this;
       var deploymentKey = 'ljsqHtoNNwS9Rmo4QJrMo_2Bu3JgE1gdagdEl';
-      vm.downloadProgress = codePush.downloadProgress;
+      vm.codePush = codePush
 
       codePush.getCurrentPackage(deploymentKey)
-        .then(function(localPackage) {
-          vm.localPackage = localPackage;
-        })
         .catch(onError);
 
-      var onError = function (error) {
-        vm.error =  error;
+      vm.checkForUpdate = function() {
+        codePush.checkForUpdate(deploymentKey)
+          .catch(onError);
+      };
+
+      vm.sync = function() {
+        codePush.sync(deploymentKey)
+          .catch(onError);
+      };
+
+      var onError = function(error) {
+        vm.error = error;
       };
     }
   };
