@@ -6,7 +6,7 @@ machine:
 dependencies:
   pre:
     # Setup for CodePush
-    - npm install -g cordova code-push-cli
+    - npm install -g cordova code-push-cli ionic
     - code-push login --accessKey $CODE_PUSH_ACCESS_KEY
     # Setup cordova for generating build
     - ionic state restore
@@ -16,7 +16,7 @@ dependencies:
     - "platforms"
 deployment:
   staging:
-    branch: mobile2
+    branch: master
     commands:
       - gulp build
       - ionic upload --email $IONIC_EMAIL --password $IONIC_PASSWORD
