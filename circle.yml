@@ -1,8 +1,6 @@
 machine:
   node:
     version: v4.2
-  ruby:
-    version: 2.2.3
 dependencies:
   pre:
     # Setup for CodePush
@@ -16,16 +14,11 @@ dependencies:
     - "platforms"
 deployment:
   staging:
-    branch: master
+    branch: /.*/
     commands:
-      - gulp build
-      - ionic upload --email $IONIC_EMAIL --password $IONIC_PASSWORD
-      - ionic share h.tavakoli@sproutatwork.com
-      - ionic share j.estacion@sproutatwork.com
       # Prepare builds
       - cordova prepare
-      # Deploy to staging
-      - code-push release $CODE_PUSH_APP_NAME ./platforms/ios/www/ $APP_STORE_VERSION --deploymentName ios -m
-      - code-push release $CODE_PUSH_APP_NAME ./platforms/android/assets/www $APP_STORE_VERSION --deploymentName android -m
-  post:
-    - node ci-hook.js $CIRCLE_PROJECT_REPONAME
+      # Create deployment and publish a release
+      - node deploy.js $CODE_PUSH_APP_NAME $APP_STORE_VERSION $CIRCLE_PR_NUMBER
+      # Update the build server
+      - node ci-hook.js $CIRCLE_PROJECT_REPONAME
