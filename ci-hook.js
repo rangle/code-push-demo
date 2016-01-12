@@ -33,7 +33,7 @@ var d = Q.defer();
 
 codepushProc.on('close', function(code) {
   console.log('code-push process exited with code', code);
-  
+
   if(code === 0) {
     var stringOutput = spawnOutput.join('');
     var parsedOutput = JSON.parse(stringOutput);

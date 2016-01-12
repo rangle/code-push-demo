@@ -1,7 +1,10 @@
 {
   "name": "code-push-demo",
-  "version": "1.1.1",
+  "version": "0.0.1",
   "description": "A demo for codePush",
+  "scripts": {
+    "test": "echo 'No tests specified'"
+  },
   "dependencies": {
     "aws-sdk": "^2.2.25",
     "gulp": "^3.5.6",
@@ -26,6 +29,7 @@
     "cordova-plugin-code-push"
   ],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    "android"
   ]
 }
