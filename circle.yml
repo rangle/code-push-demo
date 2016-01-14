@@ -21,4 +21,4 @@ deployment:
       # Create deployment and publish a release
       - node deploy.js $CODE_PUSH_APP_NAME $APP_STORE_VERSION $CIRCLE_PR_NUMBER
       # Update the build server
-      - node ci-hook.js $CIRCLE_PROJECT_REPONAME
+      - node ci-hook.js $CODE_PUSH_APP_NAME
