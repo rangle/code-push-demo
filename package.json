@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A demo for codePush",
   "scripts": {
-    "test": "echo 'No tests specified'"
+    "test": "echo 'No tests specified'",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "aws-sdk": "^2.2.25",
@@ -12,7 +14,8 @@
     "gulp-minify-css": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.0.4",
-    "q": "^1.4.1"
+    "q": "^1.4.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "bower": "^1.3.3",
@@ -31,5 +34,6 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "snyk": true
 }
